@@ -1,0 +1,139 @@
+# ScreenQC Studio — ONE local research project, filtered public Git view.
+# This file goes in the repository ROOT next to README.md and main.py.
+# Git ignore rules do not delete or hide files from the local app.
+
+# Python/editor/temp
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.bak
+*.log
+*.swp
+
+# Secrets, keys, local identity, private environment files
+.env
+.env.*
+!.env.example
+*.dpapi
+*.key
+*.pem
+*.p12
+*.pfx
+*credentials*
+*secret*
+*.sqlite
+*.sqlite3
+*.db
+*.db3
+
+# Local config: allow only a generic example
+/config/*
+!/config/local.example.json
+
+# Weights and pretrained models (local system retains them)
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.onnx
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+/checkpoints/*
+!/checkpoints/README.txt
+
+# Datasets, image libraries, user-selected source images
+/data/
+/dataset/
+/datasets/
+/MSD/
+/img/
+/images/
+/raw_images/
+/input/
+/uploads/
+
+# All generated inspection and research output, including standard + AI reports
+/outputs/*
+!/outputs/README.txt
+/reports/
+/results/
+/artifacts/
+/export/
+/exports/
+/tmp/
+/temp/
+
+# Research LOGS / parameter searches / per-image predictions — local only
+/research/logs*/
+/research/**/results/
+/research/**/plots/
+/research/**/unified_results_val/
+/research/experiments/oil_optimization_results/
+/research/_older_conflicts/
+/research/miou_out*/
+/research/out*/
+
+# Historical and thesis documentation remains available locally
+/docs/
+/thesis_private/
+/private/
+/notes_private/
+/assets/doc/private/
+/assets/images/     # superseded imagery; only curated assets/img/ is public
+/assets/img/private/
+
+# Explicitly ignore raw tabular/binary research exports wherever they appear
+*.csv
+*.tsv
+*.npy
+*.npz
+*.parquet
+*.feather
+*.tfrecord
+
+# Document originals, media exports, archives: publish only curated Markdown + assets/img
+*.doc
+*.docx
+*.pdf
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+*.zip
+*.7z
+*.rar
+*.mp4
+*.mov
+*.avi
+
+# Avoid accidentally staging random photos — allow reviewed public figures only
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+!/assets/img/*.png
+!/assets/img/*.jpg
+!/assets/img/*.jpeg
+!/assets/img/*.webp
+
+# Logs, local configurations or research dumps copied into subdirectories
+**/local.json
+**/settings.local.json
+**/api_key*
+**/token_store*
+**/migration_manifest.json
+
+deepseek_key.txt

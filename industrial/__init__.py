@@ -1,0 +1,1 @@
+"""Industry inspection report package."""

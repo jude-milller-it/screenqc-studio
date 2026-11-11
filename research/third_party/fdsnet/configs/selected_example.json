@@ -1,0 +1,16 @@
+{
+  "config": {
+    "name": "baseline",
+    "oil_min_conf": 0.0,
+    "stain_min_conf": 0.0,
+    "scratch_min_conf": 0.0,
+    "scratch_tiny_area": 0,
+    "scratch_tiny_mean_conf": 0.0,
+    "stain_tiny_area": 0,
+    "stain_tiny_mean_conf": 0.0,
+    "scratch_bridge_px": 0,
+    "scratch_bridge_min_prob": 0.2,
+    "roi_safe": false
+  },
+  "note": "Sample only; not activated by default"
+}

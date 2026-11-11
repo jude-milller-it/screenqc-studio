@@ -1,0 +1,5 @@
+# Only existing dependencies in your current Miniforge base environment are required.
+torch
+numpy
+opencv-python
+Pillow

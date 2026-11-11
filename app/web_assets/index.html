@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>ScreenQC Studio</title><link rel="stylesheet" href="/assets/style.css"></head>
+<body><div class="shell">
+  <aside class="side">
+    <div class="brand"><div class="brand-mark"><svg viewBox="0 0 32 32"><path d="M6 8h20v16H6zM11 13h10v6H11z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M2 13v-6h6M24 7h6v6M30 19v6h-6M8 25H2v-6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></div><div><strong>ScreenQC</strong><span>STUDIO / V5.3</span></div></div>
+    <div class="nav-caption" data-i18n="navwork">WORKSPACE</div>
+    <nav>
+      <button class="nav-item active" data-target="inspection"><span class="nav-icon">▦</span><span data-i18n="navindustrial">工业检测</span></button>
+      <button class="nav-item" data-target="research"><span class="nav-icon">◫</span><span data-i18n="navresearch">论文实验</span></button>
+      <button class="nav-item" data-target="settings"><span class="nav-icon">⚙</span><span data-i18n="navsettings">设置与环境</span></button>
+    </nav>
+    <div class="side-bottom"><div class="device-pill"><span class="device-dot"></span><span data-i18n="localonly">本地运行 · 数据不上传</span></div><p>ScreenQC © 2026 · by Dong<br><span data-i18n="researchtool">研究 / 工业检测工作台</span></p></div>
+  </aside>
+  <main class="main">
+    <div class="topbar"><div id="breadcrumb">WORKSPACE / INSPECTION</div><div class="top-actions"><span id="connection" class="online">● <span data-i18n="ready">就绪</span></span><div class="language-switch"><button id="langZh" class="selected">中文</button><button id="langEn">EN</button></div></div></div>
+    <section class="page current" id="inspection">
+      <div class="page-heading"><div><div class="eyebrow" data-i18n="workmode">MODE 01 / INSPECTION</div><h1 data-i18n="ititle">工业图像检测</h1><p data-i18n="isub">从图片选择、分割定位到批量报告，一条流程完成。</p></div><div class="section-status"><span class="status-icon">◇</span><span data-i18n="pixelnote">像素级缺陷候选 · 人工复核</span></div></div>
+      <div class="two-col">
+        <div class="stack">
+          <section class="panel"><div class="panel-head"><div><span class="step">01</span><h2 data-i18n="inputs">选择图片</h2></div><span class="help" data-i18n="includefolder">支持单张、多张、整个目录</span></div>
+            <div class="input-tabs"><button id="addImages" class="button primary-outline"><span>＋</span><span data-i18n="addimages">添加图片</span></button><button id="addFolder" class="button neutral"><span>▤</span><span data-i18n="addfolder">添加文件夹</span></button><button id="clearImages" class="button plain" data-i18n="clear">清空</button></div>
+            <div id="fileList" class="file-list"><div class="empty"><div class="empty-ico">▧</div><strong data-i18n="noimages">暂无待检测图片</strong><span data-i18n="addhint">点击添加图片，选择完成后即展示预览</span></div></div>
+          </section>
+        </div>
+        <div class="stack">
+          <section class="panel"><div class="panel-head"><div><span class="step">02</span><h2 data-i18n="iparams">检测配置</h2></div></div>
+            <label class="field"><span data-i18n="modelselect">检测模型</span><select id="inspectionModel">
+              <option value="deeplab" data-i18n="indLab">DeepLabV3+ · 完整优化版</option>
+              <option value="segformer_oil" selected data-i18n="selOpt">SegFormer · 全部推理优化</option>
+              <option value="fdsnet_tuned" data-i18n="indFds">FDSNet · 推理校正候选</option></select></label>
+            <div class="muted-note" data-i18n="calibrationnote">批量输出每类预测像素、候选区域与原图坐标；支持按批次复核。</div>
+            <details class="minor"><summary data-i18n="advanced">高级选项</summary><div class="settings-row"><label class="field narrow"><span data-i18n="minarea">最小导出区域(px)</span><input id="minArea" type="number" min="1" max="999999" value="1"></label><label class="field guard-setting"><span data-i18n="guardTitle">有效显示区域过滤（可选）</span><select id="roiGuard"><option value="off" data-i18n="guardOff">关闭 · 保留完整盖板结果</option><option value="on" data-i18n="guardOn">开启 · 限定LCD显示区域（实验性）</option></select><small data-i18n="guardHelp">显示区域约束仅供额外实验，可能遗漏边缘真实划痕。</small></label><label class="field guard-setting"><span data-i18n="inset">显示区域边缘内缩（像素）</span><input id="roiInset" type="number" value="16" min="0" max="40" step="1"></label></div></details>
+            <div class="ins-report-mode"><div class="tiny-label" data-i18n="reportmethod">报告方式</div><div class="radio-cards compact"><label class="radio-card"><input type="radio" name="inspectionReport" value="standard" checked><span><strong data-i18n="standardreport">标准证据报告</strong><small data-i18n="standarddesc">本地计算 · 无需API</small></span></label><label class="radio-card"><input type="radio" name="inspectionReport" value="ai"><span><strong data-i18n="aireport">AI辅助深度分析</strong><small data-i18n="aidesc">检测完毕后将分析放入报告</small></span></label></div></div>
+            <button id="runInspection" class="button solid full"><span data-i18n="runinspection">开始检测并生成报告</span><span>↗</span></button>
+          </section>
+        </div>
+      </div>
+      <section class="panel history-area" id="inspectionHistoryPanel">
+        <div class="panel-head"><div><h2 data-i18n="historyTitle">历史检测批次</h2><p class="muted-note" data-i18n="historyHelp">选择批次、打开报告并按缺陷类别或像素筛选图片</p></div><button id="historyRefresh" class="button neutral" data-i18n="refreshBatches">刷新批次</button></div>
+        <div class="history-layout">
+          <div class="history-list" id="historyRuns"><span class="muted-note" data-i18n="loadingHistory">读取检测记录…</span></div>
+          <div class="history-detail">
+            <div id="historySelection" class="muted-note" data-i18n="selectBatch">选择一个批次查看详情</div><div id="historyReports" class="report-hub"></div>
+            <div class="history-controls">
+              <label><span data-i18n="filterClass">缺陷筛选</span> <select id="historyClass"><option value="all" data-i18n="allImages">全部图片</option><option value="oil" data-i18n="oil">油污</option><option value="stain" data-i18n="stain">污渍</option><option value="scratch" data-i18n="scratch">划痕</option></select></label>
+              <label><span data-i18n="sort">排序</span> <select id="historySort"><option value="name" data-i18n="filename">文件名</option><option value="pixels" data-i18n="sortPixels">缺陷像素数量 ↓</option><option value="regions" data-i18n="sortRegions">连通区域数 ↓</option><option value="time" data-i18n="sortTime">处理时间 ↓</option></select></label>
+            </div>
+            <div id="historyGallery" class="history-gallery"></div>
+            <div class="history-pages"><button id="historyPrev" class="button neutral" data-i18n="previous">上一页</button><span id="historyPage">—</span><button id="historyNext" class="button neutral" data-i18n="next">下一页</button></div>
+          </div>
+        </div>
+      </section>
+    </section>
+    <section class="page" id="research">
+      <div class="page-heading"><div><div class="eyebrow" data-i18n="researchmode">MODE 02 / RESEARCH</div><h1 data-i18n="rtitle">论文实验与证据报告</h1><p data-i18n="rsub">统一评测 → 分类别证据 → 图表与原生Word表格 → PDF / HTML / MD</p></div></div>
+      <div class="two-col research-layout">
+        <div class="stack">
+          <section class="panel"><div class="panel-head"><div><span class="step">01</span><h2 data-i18n="dataset">评测数据集</h2></div><button id="editDataset" class="mini-link" data-i18n="editsettings">在设置中修改 ↗</button></div><div id="datasetPath" class="path-card mono">—</div><div id="splitChips" class="split-chips"></div><div class="settings-row"><label class="field narrow"><span data-i18n="split">评测划分</span><select id="evalSplit"><option value="val">val</option><option value="train">train</option><option value="test">test</option><option value="trainval">trainval</option></select></label><div class="message" id="splitMessage" data-i18n="splitwarning">当前评测划分：val · 240张</div></div></section>
+          <section class="panel"><div class="panel-head"><div><span class="step">02</span><h2 data-i18n="variants">论文对比方案</h2></div><span class="help" data-i18n="threearch">三种架构 · 可选研究阶段</span></div>
+            <div class="model-choices research-primary">
+              <label class="model-option"><input type="checkbox" value="deeplab_base" checked><span><strong data-i18n="labBase">01 · DeepLabV3+ 基础训练版</strong><small data-i18n="labBaseDesc">独立baseline权重 · 没有则取消选中</small></span></label>
+              <label class="model-option"><input type="checkbox" value="deeplab" checked><span><strong data-i18n="labFull">02 · DeepLabV3+ 完整优化版</strong><small data-i18n="labFullDesc">独立完整训练权重 · CNN对照</small></span></label>
+              <label class="model-option"><input type="checkbox" value="segformer_raw" checked><span><strong data-i18n="segBase">03 · SegFormer 最终训练权重</strong><small data-i18n="segBaseDesc">512×512 · 原始推理、无额外规则</small></span></label>
+              <label class="model-option"><input type="checkbox" value="segformer_oil" checked><span><strong data-i18n="segFinal">04 · SegFormer 最终推理优化</strong><small data-i18n="segFinalDesc">同一训练权重 · 高分辨率+ROI+置信度+油污抑制</small></span></label>
+              <label class="model-option"><input type="checkbox" value="fdsnet_tuned" checked><span><strong data-i18n="fdsFinal">05 · FDSNet 推理校正候选</strong><small data-i18n="fdsFinalDesc">原作者权重 · 污渍概率系数1.10（探索配置）</small></span></label>
+            </div>
+            <details class="minor"><summary data-i18n="stages">SegFormer完整消融（默认参与统一评测；可展开关闭）</summary>
+              <div class="model-choices extra">
+                <label class="model-option"><input type="checkbox" value="segformer_scale" checked><span><strong data-i18n="ablScale">尺度适配</strong><small data-i18n="ablScaleDesc">640×1152 · 无额外规则</small></span></label>
+                <label class="model-option"><input type="checkbox" value="segformer_roi" checked><span><strong data-i18n="ablRoi">尺度+ROI</strong><small data-i18n="ablRoiDesc">仅加入屏幕区域约束</small></span></label>
+                <label class="model-option"><input type="checkbox" value="segformer_conf" checked><span><strong data-i18n="ablConf">尺度+置信度</strong><small data-i18n="ablConfDesc">仅加入类别阈值</small></span></label>
+                <label class="model-option"><input type="checkbox" value="segformer" checked><span><strong data-i18n="ablMix">尺度+ROI+置信度</strong><small data-i18n="ablMixDesc">加入油污+0.30之前</small></span></label>
+                <label class="model-option"><input type="checkbox" value="segformer_post_bad" checked><span><strong data-i18n="ablBad">历史负优化：形态学+面积限制</strong><small data-i18n="ablBadDesc">展示旧方案为何降低精度</small></span></label>
+                <label class="model-option"><input type="checkbox" value="segformer_edge_guard"><span><strong data-i18n="ablEdge">边缘误检专项 · 最终SegFormer + 显示区域ROI</strong><small data-i18n="ablEdgeDesc">额外16px边缘内缩，可能损失真实划痕</small></span></label>
+                <label class="model-option"><input type="checkbox" value="fdsnet"><span><strong data-i18n="ablFds">FDSNet 原作者原始推理</strong><small data-i18n="ablFdsDesc">检验1.10概率校正收益</small></span></label>
+              </div><p class="muted-note" data-i18n="stagewarning">训练权重不变；这里评测的都是推理变化。历史负优化不应当被写成正向创新。</p>
+            </details>
+          </section>
+          <section class="panel"><div class="panel-head"><div><span class="step">03</span><h2 data-i18n="reportmethod">生成方式</h2></div></div><div class="radio-cards"><label class="radio-card"><input type="radio" name="researchReport" value="standard" checked><span><strong data-i18n="standardreport">标准证据报告</strong><small data-i18n="standarddesc">本地计算 · 无需API</small></span></label><label class="radio-card"><input type="radio" name="researchReport" value="ai"><span><strong data-i18n="aireport">AI辅助深度分析</strong><small data-i18n="aidesc">先计算真实指标，再按章节嵌入AI解读</small></span></label></div><p class="muted-note" data-i18n="aiconfig">厂商、模型ID、API地址和Key统一在“设置与环境”配置。</p><button id="runResearch" class="button solid full"><span data-i18n="runresearch">运行统一评测并生成完整报告</span><span>↗</span></button><div class="quiet-actions"><button id="runSize" class="mini-link" data-i18n="sizelink">微小缺陷尺寸分布</button><button id="runAudit" class="mini-link" data-i18n="auditlink">检查数据划分</button><button id="makeFromExisting" class="mini-link" data-i18n="historical">从现有结果生成报告</button></div></section>
+        </div>
+        <div class="stack"><section class="panel"><div class="panel-head"><div><span class="step">04</span><h2 data-i18n="reportoutput">论文报告输出</h2></div></div><p class="explain" data-i18n="reportdesc">报告按“研究问题—实验设计—结果—各类缺陷—消融—局限”编排。图片与文字就近呈现，完整原始数据放附录。</p><div id="researchResults" class="result-empty" data-i18n="norun">暂无完成的任务</div></section>
+          <section class="panel"><div class="panel-head"><h2 data-i18n="researchAssets">研究材料</h2></div><p class="muted-note" data-i18n="researchAssetsHelp">可编辑Word表格与图表、混淆矩阵均单独保存。</p><div class="mini-actions" id="previewSwitch" hidden><button id="openReportNew" class="button neutral" data-i18n="openfull">打开完整报告 ↗</button></div><div id="researchPdf" hidden></div></section>
+        </div>
+      </div>
+    </section>
+    <section class="page" id="settings">
+      <div class="page-heading"><div><div class="eyebrow" data-i18n="settingsmode">WORKSPACE / PREFERENCES</div><h1 data-i18n="stitle">设置与运行环境</h1><p data-i18n="ssub">语言、模型路径、数据目录、AI服务与迁移集中管理。</p></div></div>
+      <div class="settings-grid">
+        <section class="panel"><div class="panel-head"><h2 data-i18n="general">常规设置</h2></div><label class="field"><span data-i18n="language">界面语言</span><select id="settingLanguage"><option value="zh">简体中文 / Chinese</option><option value="en">English</option></select></label><label class="field"><span data-i18n="datasetroot">MSD数据集目录</span><div class="inline"><input id="settingDataset" type="text" spellcheck="false"><button id="browseDataset" class="button neutral" data-i18n="browse">浏览</button></div></label><div class="muted-note" id="settingsSplitHint"></div><label class="field"><span data-i18n="uiscale">界面缩放</span><select id="settingScale"><option value="100">100%</option><option value="110">110%</option><option value="120">120%</option><option value="125">125%</option></select></label><label class="field"><span data-i18n="outputroot">默认结果保存目录</span><div class="inline"><input id="settingOutput" spellcheck="false"><button id="browseOutput" class="button neutral" data-i18n="browse">浏览</button></div></label><button id="saveSettings" class="button solid" data-i18n="savesettings">保存设置</button></section>
+        <section class="panel"><div class="panel-head"><h2 data-i18n="modelsandweights">模型与本地权重</h2></div><div id="weightChecks" class="check-list"></div>
+         <div class="weight-paths">
+           <label class="field"><span data-i18n="weightFull">DeepLabV3+ · 完整优化权重</span><div class="inline"><input id="weightDeeplab" spellcheck="false"><button class="button neutral weightBrowse" data-weight="deeplab" data-i18n="browse">浏览</button></div></label>
+           <label class="field"><span data-i18n="weightBase">DeepLabV3+ · 基础训练权重</span><div class="inline"><input id="weightDeeplabBase" spellcheck="false"><button class="button neutral weightBrowse" data-weight="deeplab_base" data-i18n="browse">浏览</button></div></label>
+           <label class="field"><span>SegFormer · .pth</span><div class="inline"><input id="weightSegformer" spellcheck="false"><button class="button neutral weightBrowse" data-weight="segformer" data-i18n="browse">浏览</button></div></label>
+           <label class="field"><span>FDSNet · .pth</span><div class="inline"><input id="weightFdsnet" spellcheck="false"><button class="button neutral weightBrowse" data-weight="fdsnet" data-i18n="browse">浏览</button></div></label>
+         </div><label class="field"><span data-i18n="oldproject">旧项目目录</span><div class="inline"><input id="oldProject" type="text"><button id="browseOld" class="button neutral" data-i18n="browse">浏览</button></div></label><div class="button-row"><button id="doMigrate" class="button neutral" data-i18n="migrate">从旧项目复制权重</button><button id="doDoctor" class="button neutral" data-i18n="doctor">环境检查</button></div></section>
+        <section class="panel full-width"><div class="panel-head"><h2 data-i18n="aiintegration">AI 报告服务（可选）</h2><span class="help" data-i18n="ainostore">API Key在Windows当前用户下加密保存</span></div><div class="settings-row">
+          <label class="field"><span data-i18n="provider">服务商</span><select id="aiProvider"><option value="DeepSeek">DeepSeek</option><option value="OpenAI">OpenAI</option><option value="硅基流动 SiliconFlow">SiliconFlow</option><option value="自定义 OpenAI兼容">Custom / OpenAI-compatible</option></select></label>
+          <label class="field"><span data-i18n="modelid">模型ID</span><input id="aiModel" value="deepseek-flash" spellcheck="false"></label>
+          <label class="field"><span data-i18n="apiurl">API地址</span><input id="aiBase" value="https://api.deepseek.com" spellcheck="false"></label></div><label class="field"><span>API Key</span><div class="inline"><input id="aiKey" type="password" placeholder="Enter API Key / 输入密钥" autocomplete="off"><button id="saveApiKey" class="button neutral" type="button" data-i18n="saveKey">单独保存密钥</button></div><small id="aiKeySaved" class="muted-note" aria-live="polite"></small></label><p class="muted-note" data-i18n="aisafety">API仅接收结构化汇总数值，默认不发送原图、标签或权重。AI解读需要人工校验。</p></section>
+      </div>
+    </section>
+    <div class="bottom-banner" id="taskBanner" hidden><div class="task-icon"><span id="taskSpinner"></span></div><div class="task-text"><strong id="taskLabel">—</strong><small id="taskLine">—</small></div><div class="task-status" id="taskState">—</div><button id="showTaskLog" data-i18n="details">详情</button><button id="cancelTask" data-i18n="stop">停止</button></div>
+  </main>
+</div>
+<div id="taskDock" class="task-dock" aria-live="polite"></div>
+<div class="modal-backdrop" id="logModal" hidden><div class="log-modal"><div class="modal-head"><h2 data-i18n="tasklog">任务日志</h2><button id="closeModal">✕</button></div><pre id="logText"></pre></div></div>
+<div class="toast" id="toast" hidden></div><script src="/assets/app.js"></script></body></html>

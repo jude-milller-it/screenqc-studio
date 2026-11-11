@@ -1,0 +1,13 @@
+# Install into your existing Python environment (do not create a new one automatically).
+# Install a CUDA-compatible PyTorch build separately if GPU acceleration is needed.
+torch
+torchvision
+numpy
+Pillow
+opencv-python
+matplotlib
+scipy
+tqdm
+python-docx
+reportlab
+# Optional: PyMuPDF improves embedded PDF preview; not required for report generation.

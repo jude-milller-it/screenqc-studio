@@ -1,0 +1,14 @@
+{
+  "dataset": "data/MSD",
+  "weights": {
+    "deeplab": "checkpoints/deeplab_scheme3.pth",
+    "segformer": "checkpoints/segformer_mit_b2.pth",
+    "fdsnet": "checkpoints/fdsnet_phone.pth"
+  },
+  "deeplab_scheme": 3,
+  "segformer_oil_delta": 0.3,
+  "segformer_oil_margin": 0.0,
+  "outputs": "outputs",
+  "language": "zh",
+  "preferred_report": "standard"
+}
